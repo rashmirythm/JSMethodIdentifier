@@ -1,10 +1,17 @@
 
 public class FunctionDetails {
 
+	public String FileName;
 	public String FunctionName;
 	public int FunctionStartPos;
 	public int FunctionEndPos;
 	
+	public String getFileName() {
+		return FileName;
+	}
+	public void setFileName(String fileName) {
+		FileName = fileName;
+	}
 	public String getFunctionName() {
 		return FunctionName;
 	}
@@ -23,6 +30,7 @@ public class FunctionDetails {
 	public void setFunctionEndPos(int functionEndPos) {
 		FunctionEndPos = functionEndPos;
 	}
+	
 	
 	
 	
