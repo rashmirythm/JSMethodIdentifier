@@ -44,6 +44,7 @@ public class MethodIdentifier{
 		File gitWorkDir = new File("C:/Users/I338008/git/JSParser");
 		git = Git.open(gitWorkDir);
 		repository = git.getRepository();
+		
 
 		ObjectId treeId = ObjectId.fromString(commitHash);
 		RevWalk revWalk = new RevWalk(repository);
