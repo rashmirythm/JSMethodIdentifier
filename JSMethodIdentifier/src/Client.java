@@ -15,6 +15,14 @@ public class Client {
 		   commitHash=sc.next(); 
 		   sc.close();
 		   
-		   Mediate.getFunctionsAndLines(commitHash);
+		   GitDiffData gitdata[] = Mediate.getFunctionsAndLines(commitHash);
+		   
+		   for(int i=0;i<gitdata.length;i++)
+		   {
+			   System.out.println("File Name: "+gitdata[i].getFileName());
+			   System.out.println("Changes: "+gitdata[i].getGitLineinfo());
+			   System.out.println("Lines separated: "+gitdata[i].getSeperatedLines());
+			   System.out.println("\n");
+		   }
 	}
 }

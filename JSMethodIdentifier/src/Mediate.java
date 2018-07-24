@@ -29,7 +29,7 @@ public class Mediate {
 	private static Git git;
 	private static Repository repository;
 
-	public static void getFunctionsAndLines(String commitHash) throws IOException, GitAPIException
+	public static GitDiffData[] getFunctionsAndLines(String commitHash) throws IOException, GitAPIException
 	{
 
 		//========================================================================================================
@@ -126,13 +126,23 @@ public class Mediate {
 
 		//========================================================================================================
 
-		//Get Methods changed by line number
+		
+		
 		GitDiffData gitdata[] = Difference.getDiffData(commitHash);
 		
-		int linenumber = 10;
+		return gitdata;
+		
+		
+		//********************************************************************************************************
+
+		//Get Methods changed by line number
+		/*int linenumber = 10;
 		String filename="JSsamplefunctions.js";
 		MethodIdentifier.getMethodsChangedByLineNumber(fd,linenumber,filename);
+*/
+		//********************************************************************************************************
 
+		
 
 	}
 

@@ -141,9 +141,9 @@ public class Difference {
            }
            gd.setGitLineinfo(GitLineinfo);
            
-         System.out.println(gd.getFileName());
-         System.out.println(gd.getGitLineinfo());
-         System.out.println("\n");
+         //System.out.println(gd.getFileName());
+         //System.out.println(gd.getGitLineinfo());
+         //System.out.println("\n");
            
            return gd;
        }
