@@ -1,8 +1,10 @@
 
-
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -19,6 +21,7 @@ import org.eclipse.jgit.lib.ObjectReader;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 import org.eclipse.jgit.util.io.DisabledOutputStream;
+
 
 public class Difference {
        
@@ -39,6 +42,8 @@ public class Difference {
         CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
         newTreeIter.reset(reader, headId);
     
+       
+        
         List<DiffEntry> diffs= git.diff()
                 .setNewTree(newTreeIter)
                 .setOldTree(oldTreeIter)
@@ -69,6 +74,7 @@ public class Difference {
         
         for(DiffEntry diff : diffs)
         {
+        	
           df.format(diff);
           diff.getOldId();
           int iterator = diffs.lastIndexOf(diff);
@@ -147,6 +153,101 @@ public class Difference {
            
            return gd;
        }
+	
+	
+	public static GitDiffData[] readOutput() throws IOException {
+		
+		File gitWorkDir = new File("C:/Users/I338008/git/JSParser");
+		Process proc=Runtime.getRuntime().exec("git diff -U0 78641a9711a771d0dcc6a581981cacc8980ef19c e57f169e0bc0112718993a205cd3307c2188a4cc", null, gitWorkDir);
+
+		//C:\Users\I338008\Documents\GIT Documents\Diff-U_output
+		//final Path dst = Paths.get(C:\Users\I338008\Documents\GIT Documents\Diff-U_output\);
+		
+        System.out.println("read output:");
+
+        InputStream is = (InputStream) proc.getInputStream();
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader br = new BufferedReader(isr);
+        
+        String FullDiffData =null;// = br.toString();
+        //System.out.println(FullDiffData);
+        
+        
+        String line;
+        while ((line = br.readLine()) != null) {
+        	FullDiffData = FullDiffData + line + "\n";
+            //System.out.println(line);
+        }
+        //System.out.println(FullDiffData);
+        String[] fileDiffDivision = FullDiffData.split("---");
+        /*for(int i=0;i<fileDiffDivision.length;i++)
+        {
+        	System.out.println(fileDiffDivision[i]);
+        	System.out.println("**********************************************************************");
+        }*/
+        
+        GitDiffData[] gitdata = new GitDiffData[fileDiffDivision.length-1];
+        for(int i=0;i<fileDiffDivision.length-1;i++)
+        {
+        	gitdata[i] = new GitDiffData();
+        	gitdata[i] =unifiedDiffHunck(fileDiffDivision[i+1]);
+        	System.out.println(gitdata[i].FileName);
+        	System.out.println(gitdata[i].GitLineinfo);
+        	LineNumbers.getLinesofBothRevision(gitdata[i].GitLineinfo,gitdata[i]);
+        	System.out.println("\n");
+        }
+        
+        
+        
+        
+        
+        
+       // List<String> filenames = new ArrayList<String>();
+        //List<String> GitLineinfo = new ArrayList<String>();
+        
+        
+        return gitdata;
+
+        }
+        
+	public static GitDiffData unifiedDiffHunck(String fileDiffDivision)
+	{
+		GitDiffData gd = new GitDiffData();
+        //for(int i=1; i<fileDiffDivision.length;i++)
+        //{
+        	
+        	Pattern patternx = Pattern.compile("@@(.*?)@@");
+            Matcher matcher = patternx.matcher(fileDiffDivision);
+            
+            Pattern pattern1 = Pattern.compile("\\+++(.*?)\\.js");
+            Matcher matcher1 = pattern1.matcher(fileDiffDivision);
+            
+            int flag=0;
+            List<String> Lineinfo = new ArrayList<String>();
+            while(matcher.find())
+            {
+             while (flag==0 && matcher1.find())
+            {
+             	String [] arrOfFilenamesplit = matcher1.group(0).split("/", 2);
+                //filenames.add(arrOfFilenamesplit[1]);
+             	//System.out.println("FileName="+arrOfFilenamesplit[1]);
+                gd.setFileName(arrOfFilenamesplit[1]);
+                flag=1;
+            }
+            // Lineinfo.add(matcher.group(1));
+             Lineinfo.add(matcher.group(1));
+             flag=0;
+            }
+            //System.out.println(Lineinfo);
+            gd.setGitLineinfo(Lineinfo);
+           //}
+        
+        
+		
+		return gd;
+	}
+        
+        
 
 }
 

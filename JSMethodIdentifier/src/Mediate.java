@@ -36,7 +36,7 @@ public class Mediate {
 
 		//Commit Hash Id
 		//commitHash = "625dd4a253f638914893b54d74d4b2e359f36840";
-		HashSet<String> changedMethods = new HashSet<String>();
+		//HashSet<String> changedMethods = new HashSet<String>();
 
 
 		//getting the path names of all the Files in the above Commit
@@ -86,15 +86,17 @@ public class Mediate {
 
 
 			//========================================================================================================
-			//Get the ASTRoot
+			//Get the CurrentASTRoot
 			ScriptOrFnNode astRoot = MethodIdentifier.getASTnode(testScript);
 			totalFNcount = totalFNcount + astRoot.getFunctionCount();
 			//========================================================================================================
 
+			
+			
 
 		}
 		//========================================================================================================
-		//get Function Details of all files with line numbers
+		//get Function Details of all files with line numbers in Current Revision
 		FunctionDetails fd[] = new FunctionDetails[totalFNcount];
 
 		for (String filename:Pathnames) {
@@ -102,7 +104,7 @@ public class Mediate {
 			String file1 = "C:\\Users\\I338008\\Documents\\GIT Documents\\JSCurrentFile.txt";
 			String file2 = "C:\\Users\\I338008\\Documents\\GIT Documents\\JSParentFile.txt";
 			File testScript = new File("C:\\Users\\I338008\\Documents\\GIT Documents\\JSCurrentFile.txt");
-
+			
 			MethodIdentifier.createFile(tree,file1,filename);
 			RevCommit[] Parents = commit.getParents();
 			for(RevCommit parent:Parents) {
@@ -126,6 +128,8 @@ public class Mediate {
 
 		//========================================================================================================
 
+		
+		
 		
 		
 		GitDiffData gitdata[] = Difference.getDiffData(commitHash);

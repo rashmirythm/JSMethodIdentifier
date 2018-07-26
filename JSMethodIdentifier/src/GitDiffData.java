@@ -5,6 +5,10 @@ import java.util.List;
 public class GitDiffData {
 		public String FileName;
 		public List<String> GitLineinfo = new ArrayList<String>();
+		public List<Integer> oldLines = new ArrayList<Integer>();
+		public List<Integer> newLines = new ArrayList<Integer>();
+		public List<String> oldLineschangetype = new ArrayList<String>();
+		public List<String> newLineschangetype = new ArrayList<String>();
 		//public List<String> seperatedLines = new ArrayList<String>();
 		
 		public List<Integer> seperatedLines = new ArrayList<Integer>();

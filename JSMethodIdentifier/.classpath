@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="C:/Users/I338008/Documents/BITS notes/2nd practicalphase/org.mozilla.javascript-1.7.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/I338008/Documents/BITS notes/2nd practicalphase/js-1.7R2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/I338008/Documents/BITS notes/2nd practicalphase/js-1.7r3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/I338008/Desktop/diffparser.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
